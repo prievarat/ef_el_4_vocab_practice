@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English File Elementary File 4 - Vocab Master</title>
+
+  <!-- Google Fonts: Inter & Nunito as specified in Design Brief -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       DESIGN BRIEF TOKENS (:root)
+       ========================================================= */
+    :root {
+      /* Primary */
+      --primary-300: #F9C97A;
+      --primary-500: #F4A329;
+      --primary-700: #B45309;
+
+      /* Secondary */
+      --secondary-300: #7EDAD6;
+      --secondary-500: #2BB6B4;
+      --secondary-700: #0F766E;
+
+      /* Accent */
+      --accent-300: #F49DB8;
+      --accent-500: #E8467B;
+      --accent-700: #A61E4D;
+
+      /* Neutrals & Surfaces */
+      --bg: #FFF7F2;
+      --surface: #FFFFFF;
+      --surface-alt: #F5F7FA;
+      --border: #E6E9EF;
+
+      /* Text */
+      --text: #1F2937;
+      --text-2: #4B5563;
+      --text-muted: #6B7280;
+      --text-inverse: #FFFFFF;
+
+      /* Semantic status */
+      --success: #2F9E44;
+      --warning: #F59F00;
+      --error: #D92D20;
+      --info: #2563EB;
+
+      /* Typography */
+      --font-main: "Inter", "Nunito", system-ui, sans-serif;
+
+      /* Spacing Scale */
+      --sp-4: 4px;
+      --sp-8: 8px;
+      --sp-12: 12px;
+      --sp-16: 16px;
+      --sp-24: 24px;
+
+      /* Shape & Elevation */
+      --radius-card: 16px;
+      --radius-pill: 9999px;
+      --shadow-card: 0 4px 14px rgba(17, 24, 39, 0.08);
+
+      /* Interactions */
+      --transition: 180ms ease;
+    }
+
+    /* Base Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--text);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    h1 { font-size: 32px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 20px; }
+    h4 { font-size: 18px; }
+
+    p {
+      color: var(--text-2);
+      font-size: 16px;
+    }
+
+    /* Layout Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--sp-16);
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: var(--sp-24);
+      }
+    }
+
+    /* Card Component */
+    .card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: var(--sp-24);
+      transition: box-shadow var(--transition);
+    }
+
+    /* Button Tokens */
+    .btn {
+      font-family: var(--font-main);
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: var(--radius-pill);
+      padding: var(--sp-8) var(--sp-16);
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-8);
+      transition: all var(--transition);
+      text-decoration: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--secondary-500);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-700);
+      color: var(--text-inverse);
+      border-color: var(--primary-700);
+    }
+    .btn-primary:hover:not(:disabled) {
+      filter: brightness(0.95);
+      box-shadow: 0 2px 8px rgba(180, 83, 9, 0.2);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary-700);
+      border-color: var(--primary-300);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background-color: rgba(249, 201, 122, 0.24);
+    }
+
+    .btn-pill-filter {
+      font-size: 14px;
+      padding: var(--sp-4) var(--sp-12);
+      border-radius: var(--radius-pill);
+      background-color: var(--surface-alt);
+      color: var(--text-2);
+      border: 1px solid var(--border);
+    }
+    .btn-pill-filter:hover {
+      background-color: rgba(249, 201, 122, 0.2);
+      color: var(--primary-700);
+      border-color: var(--primary-300);
+    }
+    .btn-pill-filter.active {
+      background-color: var(--primary-700);
+      color: var(--text-inverse);
+      border-color: var(--primary-700);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-4);
+      padding: var(--sp-4) var(--sp-8);
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .badge-primary {
+      background-color: rgba(249, 201, 122, 0.28);
+      color: var(--primary-700);
+      border: 1px solid var(--primary-300);
+    }
+    .badge-secondary {
+      background-color: rgba(126, 218, 214, 0.25);
+      color: var(--secondary-700);
+      border: 1px solid var(--secondary-300);
+    }
+    .badge-accent {
+      background-color: rgba(244, 157, 184, 0.25);
+      color: var(--accent-700);
+      border: 1px solid var(--accent-300);
+    }
+
+    /* Input & Textareas */
+    input[type="text"], select {
+      font-family: var(--font-main);
+      font-size: 16px;
+      color: var(--text);
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: var(--sp-8) var(--sp-12);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      width: 100%;
+    }
+    input[type="text"]:focus, select:focus {
+      border-color: var(--secondary-500);
+      box-shadow: 0 0 0 2px var(--secondary-500);
+    }
+
+    /* Header & Navigation Bar */
+    header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 1px 4px rgba(17, 24, 39, 0.04);
+    }
+
+    .header-inner {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-12);
+      padding-top: var(--sp-12);
+      padding-bottom: var(--sp-12);
+    }
+
+    @media (min-width: 768px) {
+      .header-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: var(--sp-8);
+      overflow-x: auto;
+      padding-bottom: var(--sp-4);
+      scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+
+    .nav-tab-btn {
+      background: transparent;
+      color: var(--text-2);
+      border: 1px solid transparent;
+      border-radius: var(--radius-pill);
+      padding: var(--sp-8) var(--sp-16);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: var(--sp-8);
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .nav-tab-btn:hover {
+      background-color: var(--surface-alt);
+      color: var(--primary-700);
+    }
+    .nav-tab-btn.active {
+      background-color: var(--primary-700);
+      color: var(--text-inverse);
+    }
+
+    /* Flashcard 3D flip card */
+    .flashcard-wrapper {
+      perspective: 1000px;
+      width: 100%;
+      max-width: 640px;
+      height: 340px;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 360ms cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: var(--radius-card);
+    }
+    .flashcard-inner.flipped {
+      transform: rotateY(180deg);
+    }
+    .flashcard-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+      padding: var(--sp-24);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: var(--surface);
+    }
+    .flashcard-back {
+      transform: rotateY(180deg);
+      background-color: var(--surface-alt);
+      border-color: var(--secondary-300);
+    }
+
+    /* Option Cards for Quizzes and Drills */
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background-color: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: var(--sp-16);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--secondary-500);
+      background-color: rgba(126, 218, 214, 0.08);
+      transform: translateY(-1px);
+    }
+    .option-btn.correct {
+      background-color: rgba(47, 158, 68, 0.12) !important;
+      border-color: var(--success) !important;
+      color: var(--success) !important;
+    }
+    .option-btn.incorrect {
+      background-color: rgba(217, 45, 32, 0.08) !important;
+      border-color: var(--error) !important;
+      color: var(--error) !important;
+    }
+
+    /* Icon Buttons */
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-2);
+      transition: all var(--transition);
+    }
+    .icon-btn:hover {
+      background-color: var(--surface-alt);
+      color: var(--primary-700);
+      border-color: var(--primary-300);
+    }
+
+    /* Grid utilities */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-12);
+    }
+    @media (min-width: 640px) {
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Audio SVG symbol */
+    .audio-icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       HEADER & NAVIGATION
+       ========================================================= -->
+  <header>
+    <div class="container header-inner">
+      <div style="display: flex; align-items: center; gap: var(--sp-12);">
+        <div style="background-color: var(--primary-700); color: var(--text-inverse); width: 44px; height: 44px; border-radius: var(--radius-card); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 20px;">
+          F4
+        </div>
+        <div>
+          <h1 style="font-size: 20px; font-weight: 600; color: var(--text);">File 4 Vocabulary Master</h1>
+          <p style="font-size: 14px; color: var(--text-muted);">English File Elementary &bull; 65 Vocabulary Items</p>
+        </div>
+      </div>
+
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" id="tab-btn-flashcards" onclick="switchModule('flashcards')">
+          Flashcards
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-translation" onclick="switchModule('translation')">
+          Translation Drill
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-quiz" onclick="switchModule('quiz')">
+          Sentence Cloze Quiz
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-wordlist" onclick="switchModule('wordlist')">
+          All Words (65)
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       MAIN APPLICATION WORKSPACE
+       ========================================================= -->
+  <main class="container" style="flex: 1; display: flex; flex-direction: column; gap: var(--sp-24);">
+
+    <!-- =======================================================
+         MODULE 1: FLASHCARDS
+         ======================================================= -->
+    <section id="module-flashcards" style="display: flex; flex-direction: column; gap: var(--sp-16);">
+      <!-- Filters bar -->
+      <div class="card" style="padding: var(--sp-12); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--sp-8);">
+        <div style="display: flex; flex-wrap: wrap; gap: var(--sp-8);" id="fc-filter-container">
+          <button class="btn btn-pill-filter active" onclick="setFcCategory('All')">All (65)</button>
+          <button class="btn btn-pill-filter" onclick="setFcCategory('The family')">The family</button>
+          <button class="btn btn-pill-filter" onclick="setFcCategory('Daily routine')">Daily routine</button>
+          <button class="btn btn-pill-filter" onclick="setFcCategory('Time')">Time</button>
+          <button class="btn btn-pill-filter" onclick="setFcCategory('Prepositions')">Prepositions</button>
+          <button class="btn btn-pill-filter" onclick="setFcCategory('More words and phrases')">More words</button>
+        </div>
+
+        <div style="display: flex; gap: var(--sp-8);">
+          <button class="btn btn-secondary" onclick="shuffleFlashcards()" style="font-size: 14px; padding: var(--sp-4) var(--sp-12);">
+            Shuffle
+          </button>
+        </div>
+      </div>
+
+      <!-- 3D Flip Card -->
+      <div class="flashcard-wrapper" onclick="toggleCardFlip()" title="Click to flip card (or press Space)">
+        <div class="flashcard-inner" id="fc-inner">
+          
+          <!-- Card Front: English -->
+          <div class="flashcard-face">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="badge badge-primary" id="fc-cat-badge">The family</span>
+              <button class="icon-btn" onclick="event.stopPropagation(); playCurrentAudio();" title="Listen to pronunciation">
+                <svg class="audio-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+              </button>
+            </div>
+
+            <div style="text-align: center; margin: auto 0;">
+              <h2 id="fc-word-en" style="font-size: 32px; font-weight: 600; color: var(--text); margin-bottom: var(--sp-4);">brother</h2>
+              <span id="fc-phonetic" style="font-size: 16px; color: var(--text-muted); font-family: monospace;">/'brʌðə/</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--text-muted);">
+              <span id="fc-counter">1 / 65</span>
+              <span>Click or tap to view Hungarian</span>
+            </div>
+          </div>
+
+          <!-- Card Back: Hungarian & Example sentence -->
+          <div class="flashcard-face flashcard-back">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="badge badge-secondary">Hungarian & Context</span>
+              <button class="icon-btn" onclick="event.stopPropagation(); playCurrentAudio();" title="Listen">
+                <svg class="audio-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              </button>
+            </div>
+
+            <div style="text-align: center; margin: auto 0; display: flex; flex-direction: column; gap: var(--sp-12);">
+              <h3 id="fc-word-hu" style="font-size: 24px; color: var(--secondary-700);">fiútestvér</h3>
+              <div style="background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--sp-12);">
+                <p style="font-size: 14px; color: var(--text-muted); margin-bottom: var(--sp-4);">Example sentence:</p>
+                <p id="fc-sentence" style="font-size: 16px; font-style: italic; color: var(--text); font-weight: 600;">"That's my brother and his son."</p>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--text-muted);">
+              <span>Target: File 4</span>
+              <span>Click to flip back</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Card Action controls -->
+      <div style="display: flex; justify-content: center; align-items: center; gap: var(--sp-16); max-width: 640px; margin: 0 auto; width: 100%;">
+        <button class="btn btn-secondary" onclick="prevCard()" style="flex: 1;">&larr; Previous</button>
+        <button class="btn btn-secondary" id="fc-learned-btn" onclick="toggleLearnedWord()">Mark Learned</button>
+        <button class="btn btn-primary" onclick="nextCard()" style="flex: 1;">Next &rarr;</button>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         MODULE 2: TRANSLATION DRILL
+         ======================================================= -->
+    <section id="module-translation" class="hidden" style="display: flex; flex-direction: column; gap: var(--sp-16); max-width: 680px; margin: 0 auto; width: 100%;">
+      
+      <!-- Drill Controls / Preferences Card -->
+      <div class="card" style="padding: var(--sp-16); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--sp-12);">
+        <!-- Mode Switcher -->
+        <div style="display: flex; gap: var(--sp-4); background-color: var(--surface-alt); padding: var(--sp-4); border-radius: var(--radius-pill); border: 1px solid var(--border);">
+          <button class="btn btn-pill-filter active" id="tr-dir-en-hu" onclick="setTrDirection('en-hu')">EN &rarr; HU</button>
+          <button class="btn btn-pill-filter" id="tr-dir-hu-en" onclick="setTrDirection('hu-en')">HU &rarr; EN</button>
+        </div>
+
+        <!-- Input Mode Switcher -->
+        <div style="display: flex; gap: var(--sp-4); background-color: var(--surface-alt); padding: var(--sp-4); border-radius: var(--radius-pill); border: 1px solid var(--border);">
+          <button class="btn btn-pill-filter active" id="tr-type-mcq" onclick="setTrInputType('mcq')">Multiple Choice</button>
+          <button class="btn btn-pill-filter" id="tr-type-text" onclick="setTrInputType('type')">Type Answer</button>
+        </div>
+
+        <!-- Stats Counter -->
+        <div style="font-size: 14px; font-weight: 600; color: var(--text-2); display: flex; gap: var(--sp-12);">
+          <span>Score: <strong id="tr-score" style="color: var(--primary-700);">0</strong></span>
+          <span>Streak: <strong id="tr-streak" style="color: var(--warning);">0</strong> 🔥</span>
+        </div>
+      </div>
+
+      <!-- Question Prompt Card -->
+      <div class="card" style="display: flex; flex-direction: column; gap: var(--sp-16);">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span class="badge badge-primary" id="tr-prompt-cat">The family</span>
+          <button class="icon-btn" onclick="speakTrWord()" title="Audio">
+            <svg class="audio-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+          </button>
+        </div>
+
+        <div style="text-align: center; padding: var(--sp-8) 0;">
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: var(--sp-4);" id="tr-dir-label">Translate into Hungarian:</p>
+          <h2 id="tr-prompt-text" style="font-size: 32px; color: var(--text);">mother-in-law</h2>
+        </div>
+
+        <!-- MCQ Options Area -->
+        <div id="tr-mcq-area" class="grid-2">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Type Answer Area -->
+        <div id="tr-type-area" class="hidden" style="display: flex; flex-direction: column; gap: var(--sp-8);">
+          <input type="text" id="tr-text-input" placeholder="Type your answer and press Enter..." autocomplete="off" onkeydown="handleTrInputKey(event)" />
+          <button class="btn btn-primary" onclick="checkTypedTranslation()">Submit Answer</button>
+        </div>
+
+        <!-- Feedback & Explanation Box -->
+        <div id="tr-feedback-box" class="hidden" style="border-radius: var(--radius-card); padding: var(--sp-16); border: 1px solid var(--border); background-color: var(--surface-alt);">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-4);">
+            <strong id="tr-feedback-title" style="font-size: 18px;">Correct!</strong>
+            <button class="btn btn-primary" onclick="nextTranslationPrompt()" style="font-size: 14px; padding: var(--sp-4) var(--sp-12);">Next &rarr;</button>
+          </div>
+          <p id="tr-feedback-msg" style="font-size: 14px; color: var(--text-2);"></p>
+          <p id="tr-feedback-ex" style="font-size: 14px; font-style: italic; color: var(--primary-700); margin-top: var(--sp-4);"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         MODULE 3: CLOZE / SENTENCE GAP-FILL QUIZ
+         ======================================================= -->
+    <section id="module-quiz" class="hidden" style="display: flex; flex-direction: column; gap: var(--sp-16); max-width: 680px; margin: 0 auto; width: 100%;">
+      
+      <!-- Quiz Progress Bar Header -->
+      <div class="card" style="padding: var(--sp-16); display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <span style="font-size: 14px; color: var(--text-muted);">Question</span>
+          <div style="font-size: 18px; font-weight: 600;" id="quiz-question-counter">1 / 10</div>
+        </div>
+        <div style="text-align: right;">
+          <span style="font-size: 14px; color: var(--text-muted);">Current Score</span>
+          <div style="font-size: 18px; font-weight: 600; color: var(--secondary-700);" id="quiz-score-counter">0</div>
+        </div>
+      </div>
+
+      <!-- Question Card -->
+      <div class="card" id="quiz-question-card" style="display: flex; flex-direction: column; gap: var(--sp-16);">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span class="badge badge-secondary" id="quiz-cat-badge">Daily routine</span>
+          <span style="font-size: 14px; color: var(--text-muted);">Hungarian clue: <strong id="quiz-hu-clue" style="color: var(--text);">felöltözik</strong></span>
+        </div>
+
+        <div style="background-color: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--sp-24); text-align: center;">
+          <p id="quiz-cloze-sentence" style="font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.4;">
+            I have a shower, then I <span style="color: var(--primary-700); border-bottom: 2px solid var(--primary-500); padding: 0 4px;">_______</span>.
+          </p>
+        </div>
+
+        <div class="grid-2" id="quiz-options-container">
+          <!-- 4 Calibrated Options -->
+        </div>
+
+        <div id="quiz-feedback-box" class="hidden" style="border-radius: var(--radius-card); padding: var(--sp-16); border: 1px solid var(--border); background-color: var(--surface-alt);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-8);">
+            <strong id="quiz-feedback-title" style="font-size: 18px;">Correct</strong>
+            <button class="icon-btn" onclick="speakQuizSentence()" title="Listen to complete sentence">
+              <svg class="audio-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+            </button>
+          </div>
+          <p id="quiz-feedback-text" style="font-size: 14px; color: var(--text-2);"></p>
+          <div style="margin-top: var(--sp-12); text-align: right;">
+            <button class="btn btn-primary" onclick="nextQuizStep()">Next Sentence &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Results Card (at end of round) -->
+      <div class="card hidden" id="quiz-summary-card" style="text-align: center; display: flex; flex-direction: column; gap: var(--sp-16);">
+        <h2 style="color: var(--primary-700);">Quiz Round Complete!</h2>
+        <p style="font-size: 16px;">Here is your performance summary for this round:</p>
+
+        <div style="background-color: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--sp-24); margin: 0 auto; width: 100%; max-width: 320px;">
+          <div id="quiz-final-score" style="font-size: 32px; font-weight: 600; color: var(--primary-700);">8 / 10</div>
+          <span style="font-size: 14px; color: var(--text-muted);">Total Accuracy</span>
+        </div>
+
+        <div id="quiz-summary-mistakes" style="text-align: left; display: flex; flex-direction: column; gap: var(--sp-8);">
+          <!-- Mistakes review -->
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: var(--sp-12); margin-top: var(--sp-8);">
+          <button class="btn btn-secondary" onclick="startQuizRound(10)">Practice 10 Questions</button>
+          <button class="btn btn-primary" onclick="startQuizRound(vocabDatabase.length)">Practice All 65</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         MODULE 4: COMPLETE REFERENCE WORDLIST
+         ======================================================= -->
+    <section id="module-wordlist" class="hidden" style="display: flex; flex-direction: column; gap: var(--sp-16);">
+      
+      <!-- Search & Filters -->
+      <div class="card" style="padding: var(--sp-16); display: flex; flex-wrap: wrap; gap: var(--sp-12); align-items: center; justify-content: space-between;">
+        <div style="flex: 1; min-width: 240px;">
+          <input type="text" id="wl-search-input" placeholder="Search in English or Hungarian..." oninput="renderWordlistTable()" />
+        </div>
+        <div style="min-width: 200px;">
+          <select id="wl-cat-select" onchange="renderWordlistTable()">
+            <option value="All">All Categories (65)</option>
+            <option value="The family">The family (18)</option>
+            <option value="Daily routine">Daily routine (24)</option>
+            <option value="Time">Time (12)</option>
+            <option value="Prepositions">Prepositions (6)</option>
+            <option value="More words and phrases">More words and phrases (5)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Count & Info -->
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--text-muted); padding: 0 var(--sp-4);">
+        <span>Showing <strong id="wl-count-display" style="color: var(--text);">65</strong> items</span>
+        <span>Click audio icon to hear pronunciation</span>
+      </div>
+
+      <!-- Word Cards Grid -->
+      <div class="grid-2" id="wl-cards-container" style="gap: var(--sp-12);">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer style="background-color: var(--surface); border-top: 1px solid var(--border); padding: var(--sp-16) 0; margin-top: auto;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--text-muted); flex-wrap: wrap; gap: var(--sp-8);">
+      <span>English File Elementary (4th Edition) &bull; File 4 Vocabulary Bank</span>
+      <span>Warm School UI Design Token System</span>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       COMPLETE DATA & INTERACTIVE SCRIPT
+       ========================================================= -->
+  <script>
+    /* Complete Database of 65 File 4 Vocabulary Items */
+    const vocabDatabase = [
+      // 1. The family (18 items)
+      { id: 1, category: "The family", en: "aunt", phonetic: "/ɑːnt/", hu: "nagynéni", sentence: "My mum's sister, my aunt, is two years older than she is.", cloze: "My mum's sister, my _______, is two years older than she is.", options: ["aunt", "office", "garden", "carpet"], correct: "aunt" },
+      { id: 2, category: "The family", en: "brother", phonetic: "/'brʌðə/", hu: "fiútestvér", sentence: "That's my brother and his son.", cloze: "That's my _______ and his son.", options: ["brother", "ticket", "station", "wallet"], correct: "brother" },
+      { id: 3, category: "The family", en: "brother-in-law", phonetic: "/'brʌðər ɪn lɔː/", hu: "sógor", sentence: "My brother-in-law still lives with his parents.", cloze: "My _______ still lives with his parents.", options: ["brother-in-law", "homework", "kitchen", "weekend"], correct: "brother-in-law" },
+      { id: 4, category: "The family", en: "children", phonetic: "/'tʃɪldrən/", hu: "gyerekek", sentence: "He has three children, two boys and a girl.", cloze: "He has three _______, two boys and a girl.", options: ["children", "classes", "minutes", "trousers"], correct: "children" },
+      { id: 5, category: "The family", en: "cousin", phonetic: "/'kʌzn/", hu: "unokatestvér", sentence: "My cousin goes to the same school as me.", cloze: "My _______ goes to the same school as me.", options: ["cousin", "shower", "dinner", "address"], correct: "cousin" },
+      { id: 6, category: "The family", en: "daughter", phonetic: "/'dɔːtə/", hu: "lánya vkinek", sentence: "My daughter is four years old.", cloze: "My _______ is four years old.", options: ["daughter", "jacket", "lesson", "coffee"], correct: "daughter" },
+      { id: 7, category: "The family", en: "father", phonetic: "/'fɑːðə/", hu: "apa", sentence: "My father is a doctor.", cloze: "My _______ is a doctor.", options: ["father", "street", "clock", "table"], correct: "father" },
+      { id: 8, category: "The family", en: "grandfather", phonetic: "/'grænfɑːðə/", hu: "nagyapa", sentence: "My grandfather is 78 years old.", cloze: "My _______ is 78 years old.", options: ["grandfather", "computer", "cinema", "airport"], correct: "grandfather" },
+      { id: 9, category: "The family", en: "grandmother", phonetic: "/'grænmʌðə/", hu: "nagymama / nagyanya", sentence: "My grandmother doesn't work.", cloze: "My _______ doesn't work.", options: ["grandmother", "supermarket", "exercise", "afternoon"], correct: "grandmother" },
+      { id: 10, category: "The family", en: "mother-in-law", phonetic: "/'mʌðər ɪn lɔː/", hu: "anyós", sentence: "I don't like my mother-in-law.", cloze: "I don't like my _______.", options: ["mother-in-law", "housework", "cafeteria", "direction"], correct: "mother-in-law" },
+      { id: 11, category: "The family", en: "nephew", phonetic: "/'nefjuː/", hu: "unokaöccs", sentence: "My nephew is five years old.", cloze: "My _______ is five years old.", options: ["nephew", "mobile", "window", "museum"], correct: "nephew" },
+      { id: 12, category: "The family", en: "niece", phonetic: "/niːs/", hu: "unokahúg", sentence: "I have got a nephew but not a niece.", cloze: "I have got a nephew but not a _______.", options: ["niece", "radio", "table", "train"], correct: "niece" },
+      { id: 13, category: "The family", en: "parents", phonetic: "/'peərənts/", hu: "szülők", sentence: "My parents don't often listen to the radio.", cloze: "My _______ don't often listen to the radio.", options: ["parents", "bottles", "matches", "sandwiches"], correct: "parents" },
+      { id: 14, category: "The family", en: "sister", phonetic: "/'sɪstə/", hu: "lánytestvér", sentence: "My sister has three children.", cloze: "My _______ has three children.", options: ["sister", "pencil", "wallet", "garden"], correct: "sister" },
+      { id: 15, category: "The family", en: "son", phonetic: "/sʌn/", hu: "fia vkinek", sentence: "I have two daughters and a son.", cloze: "I have two daughters and a _______.", options: ["son", "bus", "key", "pen"], correct: "son" },
+      { id: 16, category: "The family", en: "stepfather", phonetic: "/'stepfɑːðə/", hu: "nevelőapa", sentence: "Is he your father? ~ No, he's my stepfather.", cloze: "Is he your father? ~ No, he's my _______.", options: ["stepfather", "passport", "sandwich", "magazine"], correct: "stepfather" },
+      { id: 17, category: "The family", en: "uncle", phonetic: "/'ʌŋkl/", hu: "nagybácsi", sentence: "I don't see my uncle very often.", cloze: "I don't see my _______ very often.", options: ["uncle", "hotel", "photo", "watch"], correct: "uncle" },
+      { id: 18, category: "The family", en: "wife", phonetic: "/waɪf/", hu: "feleség", sentence: "He lives in Chile with his wife.", cloze: "He lives in Chile with his _______.", options: ["wife", "bank", "food", "film"], correct: "wife" },
+
+      // 2. Daily routine (24 items)
+      { id: 19, category: "Daily routine", en: "do exercise", phonetic: "/duː 'eksəsaɪz/", hu: "testmozgást végez / edz", sentence: "I hardly ever do exercise.", cloze: "I hardly ever _______ .", options: ["do exercise", "buy a car", "read the board", "listen to music"], correct: "do exercise" },
+      { id: 20, category: "Daily routine", en: "do homework", phonetic: "/duː 'həʊmwɜːk/", hu: "házi feladatot ír", sentence: "How often do you do homework?", cloze: "How often do you _______ ?", options: ["do homework", "open your book", "go by plane", "live in Chile"], correct: "do homework" },
+      { id: 21, category: "Daily routine", en: "do the housework", phonetic: "/duː ðə 'haʊswɜːk/", hu: "házimunkát végez", sentence: "I do the housework on Saturday morning.", cloze: "I _______ on Saturday morning.", options: ["do the housework", "fly a plane", "am a lawyer", "learn a word"], correct: "do the housework" },
+      { id: 22, category: "Daily routine", en: "finish work at 6.30", phonetic: "/'fɪnɪʃ wɜːk ət sɪks 'θɜːti/", hu: "fél 7-kor végez a munkával", sentence: "I finish work at 6.30 p.m.", cloze: "I _______ p.m.", options: ["finish work at 6.30", "drink mineral water", "have two sisters", "wear brown shoes"], correct: "finish work at 6.30" },
+      { id: 23, category: "Daily routine", en: "get dressed", phonetic: "/get drest/", hu: "felöltözik", sentence: "I have a shower, then I get dressed.", cloze: "I have a shower, then I _______ .", options: ["get dressed", "speak German", "drive a taxi", "book a ticket"], correct: "get dressed" },
+      { id: 24, category: "Daily routine", en: "get home late", phonetic: "/get həʊm leɪt/", hu: "későn ér haza", sentence: "They often get home late.", cloze: "They often _______ .", options: ["get home late", "speak three languages", "teach chemistry", "wear dark glasses"], correct: "get home late" },
+      { id: 25, category: "Daily routine", en: "get up at 8.00", phonetic: "/get ʌp ət eɪt/", hu: "8-kor kel fel", sentence: "I get up at 8.00 a.m.", cloze: "I _______ a.m.", options: ["get up at 8.00", "speak Polish well", "play the guitar", "eat fast food"], correct: "get up at 8.00" },
+      { id: 26, category: "Daily routine", en: "go home early", phonetic: "/gəʊ həʊm 'ɜːli/", hu: "korán megy haza", sentence: "Sometimes I go home early from work.", cloze: "Sometimes I _______ from work.", options: ["go home early", "drink black coffee", "sing a song", "write an email"], correct: "go home early" },
+      { id: 27, category: "Daily routine", en: "go shopping", phonetic: "/gəʊ 'ʃɒpɪŋ/", hu: "bevásárolni megy", sentence: "I usually go shopping at the weekend.", cloze: "I usually _______ at the weekend.", options: ["go shopping", "cost fifty cents", "turn off the radio", "stand up quickly"], correct: "go shopping" },
+      { id: 28, category: "Daily routine", en: "go to bed late", phonetic: "/gəʊ tə bed leɪt/", hu: "későn megy aludni", sentence: "I usually go to bed late on Friday.", cloze: "I usually _______ on Friday.", options: ["go to bed late", "am seventeen years old", "close the door", "eat Italian pasta"], correct: "go to bed late" },
+      { id: 29, category: "Daily routine", en: "go to Italian classes", phonetic: "/gəʊ tə ɪ'tæliən klɑːsɪz/", hu: "olaszórára jár", sentence: "I go to Italian classes twice a week.", cloze: "I _______ twice a week.", options: ["go to Italian classes", "have a red car", "live in a village", "wear a bow tie"], correct: "go to Italian classes" },
+      { id: 30, category: "Daily routine", en: "go to work by bus", phonetic: "/gəʊ tə wɜːk baɪ bʌs/", hu: "busszal megy dolgozni", sentence: "We go to work by bus.", cloze: "We _______ .", options: ["go to work by bus", "are hungry and tired", "have bad teeth", "read page 84"], correct: "go to work by bus" },
+      { id: 31, category: "Daily routine", en: "have a bath", phonetic: "/hæv ə bɑːθ/", hu: "fürdik (kádban)", sentence: "I don't like showers so I have a bath.", cloze: "I don't like showers so I _______ .", options: ["have a bath", "drive to London", "speak to the teacher", "work in a bank"], correct: "have a bath" },
+      { id: 32, category: "Daily routine", en: "have a coffee", phonetic: "/hæv ə 'kɒfi/", hu: "kávézik / iszik egy kávét", sentence: "I have a coffee for breakfast.", cloze: "I _______ for breakfast.", options: ["have a coffee", "drive a bus", "teach English", "close the window"], correct: "have a coffee" },
+      { id: 33, category: "Daily routine", en: "have a shower", phonetic: "/hæv ə 'ʃaʊə/", hu: "lezuhanyozik", sentence: "I have a shower every morning before breakfast.", cloze: "I _______ every morning before breakfast.", options: ["have a shower", "work in an office", "take an umbrella", "go to the cinema"], correct: "have a shower" },
+      { id: 34, category: "Daily routine", en: "have breakfast", phonetic: "/hæv 'brekfəst/", hu: "reggelizik", sentence: "I like to have breakfast in bed at the weekends.", cloze: "I like to _______ in bed at the weekends.", options: ["have breakfast", "drive very fast", "speak five languages", "wear my glasses"], correct: "have breakfast" },
+      { id: 35, category: "Daily routine", en: "have lunch at work", phonetic: "/hæv lʌntʃ ət wɜːk/", hu: "a munkahelyén ebédel", sentence: "We have lunch at work, in the cafeteria.", cloze: "We _______ , in the cafeteria.", options: ["have lunch at work", "take a taxi home", "cut people's hair", "play football"], correct: "have lunch at work" },
+      { id: 36, category: "Daily routine", en: "have pizza for dinner", phonetic: "/hæv 'piːtsə fə 'dɪnə/", hu: "pizzát vacsorázik", sentence: "They often have pizza for dinner.", cloze: "They often _______ .", options: ["have pizza for dinner", "listen to the radio", "look at the board", "sleep for eight hours"], correct: "have pizza for dinner" },
+      { id: 37, category: "Daily routine", en: "make the dinner", phonetic: "/meɪk ðə 'dɪnə/", hu: "vacsorát főz / készít", sentence: "The children do their homework and I make the dinner.", cloze: "The children do their homework and I _______ .", options: ["make the dinner", "am very tall", "come from Spain", "have green eyes"], correct: "make the dinner" },
+      { id: 38, category: "Daily routine", en: "relax", phonetic: "/rɪ'læks/", hu: "pihen / lazít", sentence: "I like to relax at the weekend.", cloze: "I like to _______ at the weekend.", options: ["relax", "expensive", "hungry", "careful"], correct: "relax" },
+      { id: 39, category: "Daily routine", en: "sleep for eight hours", phonetic: "/sliːp fər eɪt 'aʊəz/", hu: "nyolc órát alszik", sentence: "They don't usually sleep for eight hours.", cloze: "They don't usually _______ .", options: ["sleep for eight hours", "have a white car", "wear a dark suit", "speak good English"], correct: "sleep for eight hours" },
+      { id: 40, category: "Daily routine", en: "start work at 8.30", phonetic: "/stɑːt wɜːk ət eɪt 'θɜːti/", hu: "fél 9-kor kezdi a munkát", sentence: "I start work at 8.30 a.m.", cloze: "I _______ a.m.", options: ["start work at 8.30", "drink mineral water", "have three cousins", "wear new shoes"], correct: "start work at 8.30" },
+      { id: 41, category: "Daily routine", en: "take the dog for a walk", phonetic: "/teɪk ðə dɒg fər ə wɔːk/", hu: "elviszi a kutyát sétálni", sentence: "I take the dog for a walk every morning.", cloze: "I _______ every morning.", options: ["take the dog for a walk", "live in a hotel room", "work as a journalist", "buy five magazines"], correct: "take the dog for a walk" },
+      { id: 42, category: "Daily routine", en: "wake up at 7.00", phonetic: "/weɪk ʌp ət 'sevn/", hu: "7-kor ébred", sentence: "I wake up at 7.00 a.m.", cloze: "I _______ a.m.", options: ["wake up at 7.00", "speak four languages", "play computer games", "read two newspapers"], correct: "wake up at 7.00" },
+
+      // 3. Time (12 items)
+      { id: 43, category: "Time", en: "always", phonetic: "/'ɔːlweɪz/", hu: "mindig", sentence: "Why are you always late?", cloze: "Why are you _______ late?", options: ["always", "morning", "dinner", "umbrella"], correct: "always" },
+      { id: 44, category: "Time", en: "every", phonetic: "/'evri/", hu: "minden (nap / hét / hónap / év)", sentence: "They spend about 31 hours online every week.", cloze: "They spend about 31 hours online _______ week.", options: ["every", "quite", "slow", "heavy"], correct: "every" },
+      { id: 45, category: "Time", en: "hardly ever", phonetic: "/'hɑːdli 'evə/", hu: "alig valaha", sentence: "He hardly ever has breakfast.", cloze: "He _______ has breakfast.", options: ["hardly ever", "next door", "very tall", "by bus"], correct: "hardly ever" },
+      { id: 46, category: "Time", en: "never", phonetic: "/'nevə/", hu: "soha", sentence: "I never have time for breakfast.", cloze: "I _______ have time for breakfast.", options: ["never", "today", "yesterday", "tomorrow"], correct: "never" },
+      { id: 47, category: "Time", en: "normally", phonetic: "/'nɔːməli/", hu: "általában / rendesen", sentence: "I normally leave work at five.", cloze: "I _______ leave work at five.", options: ["normally", "straight", "quickly", "patiently"], correct: "normally" },
+      { id: 48, category: "Time", en: "often", phonetic: "/'ɒfn/", hu: "gyakran", sentence: "He often has a hamburger for dinner.", cloze: "He _______ has a hamburger for dinner.", options: ["often", "yesterday", "tonight", "carefully"], correct: "often" },
+      { id: 49, category: "Time", en: "once", phonetic: "/wʌns/", hu: "egyszer (egy nap / héten / stb.)", sentence: "We go to the cinema once a week.", cloze: "We go to the cinema _______ a week.", options: ["once", "first", "one", "second"], correct: "once" },
+      { id: 50, category: "Time", en: "only", phonetic: "/'əʊnli/", hu: "csak / csupán", sentence: "We only have half an hour for lunch.", cloze: "We _______ have half an hour for lunch.", options: ["only", "very", "much", "quite"], correct: "only" },
+      { id: 51, category: "Time", en: "sometimes", phonetic: "/'sʌmtaɪmz/", hu: "néha", sentence: "They're sometimes late.", cloze: "They're _______ late.", options: ["sometimes", "morning", "station", "address"], correct: "sometimes" },
+      { id: 52, category: "Time", en: "three times", phonetic: "/θriː taɪmz/", hu: "háromszor", sentence: "I play tennis three times a week.", cloze: "I play tennis _______ a week.", options: ["three times", "third day", "number three", "thirteen hours"], correct: "three times" },
+      { id: 53, category: "Time", en: "twice", phonetic: "/twaɪs/", hu: "kétszer", sentence: "I have English classes twice a week.", cloze: "I have English classes _______ a week.", options: ["twice", "two", "second", "double"], correct: "twice" },
+      { id: 54, category: "Time", en: "usually", phonetic: "/'juːʒuəli/", hu: "általában / rendszerint", sentence: "In the morning we usually have five lessons.", cloze: "In the morning we _______ have five lessons.", options: ["usually", "safely", "fast", "well"], correct: "usually" },
+
+      // 4. Prepositions of time and place (6 items)
+      { id: 55, category: "Prepositions", en: "at (time)", phonetic: "/æt/", hu: "-kor (időpont kifejezésére)", sentence: "I get up at 7.30 a.m.", cloze: "I get up _______ 7.30 a.m.", options: ["at", "on", "in", "to"], correct: "at" },
+      { id: 56, category: "Prepositions", en: "at (place)", phonetic: "/æt/", hu: "-nál / -nél, -ban / -ben (helyszín kifejezésére)", sentence: "I have lunch at school.", cloze: "I have lunch _______ school.", options: ["at", "on", "to", "into"], correct: "at" },
+      { id: 57, category: "Prepositions", en: "in (time)", phonetic: "/ɪn/", hu: "-ban / -ben (napszak kifejezésére)", sentence: "I have two classes in the afternoon.", cloze: "I have two classes _______ the afternoon.", options: ["in", "at", "on", "to"], correct: "in" },
+      { id: 58, category: "Prepositions", en: "in (place)", phonetic: "/ɪn/", hu: "-ban / -ben (zárt térben, szobában)", sentence: "He's in his bedroom at the moment.", cloze: "He's _______ his bedroom at the moment.", options: ["in", "on", "to", "at"], correct: "in" },
+      { id: 59, category: "Prepositions", en: "on (days)", phonetic: "/ɒn/", hu: "-n / -on / -en / -ön (napok kifejezésére)", sentence: "I play football on Saturdays.", cloze: "I play football _______ Saturdays.", options: ["on", "in", "at", "to"], correct: "on" },
+      { id: 60, category: "Prepositions", en: "to (direction)", phonetic: "/tuː/", hu: "-ba / -be, felé (irány kifejezésére)", sentence: "I go to school by bus.", cloze: "I go _______ school by bus.", options: ["to", "in", "at", "on"], correct: "to" },
+
+      // 5. More words and phrases (5 items)
+      { id: 61, category: "More words and phrases", en: "bow tie", phonetic: "/bəʊ taɪ/", hu: "csokornyakkendő", sentence: "He wears a suit and a bow tie.", cloze: "He wears a suit and a _______ .", options: ["bow tie", "passport", "station", "window"], correct: "bow tie" },
+      { id: 62, category: "More words and phrases", en: "glasses", phonetic: "/'glɑːsɪz/", hu: "szemüveg", sentence: "I need glasses to see.", cloze: "I need _______ to see.", options: ["glasses", "suitcases", "tickets", "desks"], correct: "glasses" },
+      { id: 63, category: "More words and phrases", en: "relaxed", phonetic: "/rɪ'lækst/", hu: "nyugodt / laza", sentence: "He's a very relaxed person.", cloze: "He's a very _______ person.", options: ["relaxed", "dark", "empty", "cheap"], correct: "relaxed" },
+      { id: 64, category: "More words and phrases", en: "ring", phonetic: "/rɪŋ/", hu: "gyűrű", sentence: "She wears a beautiful ring.", cloze: "She wears a beautiful _______ .", options: ["ring", "building", "train", "butter"], correct: "ring" },
+      { id: 65, category: "More words and phrases", en: "watch", phonetic: "/wɒtʃ/", hu: "karóra", sentence: "Do you wear a watch? What is the time?", cloze: "Do you wear a _______ ? What is the time?", options: ["watch", "table", "chair", "wallet"], correct: "watch" }
+    ];
+
+    /* Learning progress persistence */
+    let learnedWords = new Set(JSON.parse(localStorage.getItem('fe4_learned_items') || '[]'));
+
+    function saveLearnedStatus() {
+      localStorage.setItem('fe4_learned_items', JSON.stringify(Array.from(learnedWords)));
+      updateCardLearnedBtn();
+    }
+
+    /* Web Speech Audio */
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const clean = text.replace(/_/g, '').replace(/\(.*?\)/g, '').trim();
+      const u = new SpeechSynthesisUtterance(clean);
+      u.lang = 'en-GB';
+      u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+
+    /* Navigation Switcher */
+    function switchModule(moduleName) {
+      ['flashcards', 'translation', 'quiz', 'wordlist'].forEach(m => {
+        const sec = document.getElementById(`module-${m}`);
+        const btn = document.getElementById(`tab-btn-${m}`);
+        if (m === moduleName) {
+          sec.classList.remove('hidden');
+          btn.classList.add('active');
+        } else {
+          sec.classList.add('hidden');
+          btn.classList.remove('active');
+        }
+      });
+
+      if (moduleName === 'flashcards') renderFlashcard();
+      if (moduleName === 'translation') nextTranslationPrompt();
+      if (moduleName === 'quiz' && quizList.length === 0) startQuizRound(10);
+      if (moduleName === 'wordlist') renderWordlistTable();
+    }
+
+    /* =========================================================
+       MODULE 1: FLASHCARDS
+       ========================================================= */
+    let fcList = [...vocabDatabase];
+    let fcIdx = 0;
+    let fcFlipped = false;
+
+    function setFcCategory(cat) {
+      document.querySelectorAll('#fc-filter-container .btn-pill-filter').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.includes(cat) || (cat === 'All' && btn.textContent.startsWith('All')));
+      });
+
+      if (cat === 'All') {
+        fcList = [...vocabDatabase];
+      } else {
+        fcList = vocabDatabase.filter(i => i.category === cat);
+      }
+      fcIdx = 0;
+      fcFlipped = false;
+      document.getElementById('fc-inner').classList.remove('flipped');
+      renderFlashcard();
+    }
+
+    function shuffleFlashcards() {
+      for (let i = fcList.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [fcList[i], fcList[j]] = [fcList[j], fcList[i]];
+      }
+      fcIdx = 0;
+      fcFlipped = false;
+      document.getElementById('fc-inner').classList.remove('flipped');
+      renderFlashcard();
+    }
+
+    function toggleCardFlip() {
+      fcFlipped = !fcFlipped;
+      document.getElementById('fc-inner').classList.toggle('flipped', fcFlipped);
+    }
+
+    function renderFlashcard() {
+      if (fcList.length === 0) return;
+      const item = fcList[fcIdx];
+      document.getElementById('fc-cat-badge').textContent = item.category;
+      document.getElementById('fc-word-en').textContent = item.en;
+      document.getElementById('fc-phonetic').textContent = item.phonetic;
+      document.getElementById('fc-word-hu').textContent = item.hu;
+      document.getElementById('fc-sentence').textContent = `"${item.sentence}"`;
+      document.getElementById('fc-counter').textContent = `${fcIdx + 1} / ${fcList.length}`;
+      updateCardLearnedBtn();
+    }
+
+    function updateCardLearnedBtn() {
+      const item = fcList[fcIdx];
+      if (!item) return;
+      const isLearned = learnedWords.has(item.id);
+      const btn = document.getElementById('fc-learned-btn');
+      if (isLearned) {
+        btn.textContent = "Learned ✓";
+        btn.style.backgroundColor = "rgba(47, 158, 68, 0.15)";
+        btn.style.color = "var(--success)";
+        btn.style.borderColor = "var(--success)";
+      } else {
+        btn.textContent = "Mark Learned";
+        btn.style.backgroundColor = "transparent";
+        btn.style.color = "var(--primary-700)";
+        btn.style.borderColor = "var(--primary-300)";
+      }
+    }
+
+    function toggleLearnedWord() {
+      const item = fcList[fcIdx];
+      if (learnedWords.has(item.id)) {
+        learnedWords.delete(item.id);
+      } else {
+        learnedWords.add(item.id);
+      }
+      saveLearnedStatus();
+    }
+
+    function prevCard() {
+      fcIdx = (fcIdx > 0) ? fcIdx - 1 : fcList.length - 1;
+      fcFlipped = false;
+      document.getElementById('fc-inner').classList.remove('flipped');
+      renderFlashcard();
+    }
+
+    function nextCard() {
+      fcIdx = (fcIdx < fcList.length - 1) ? fcIdx + 1 : 0;
+      fcFlipped = false;
+      document.getElementById('fc-inner').classList.remove('flipped');
+      renderFlashcard();
+    }
+
+    function playCurrentAudio() {
+      const item = fcList[fcIdx];
+      if (item) speak(item.en);
+    }
+
+    // Spacebar to flip card
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && !document.getElementById('module-flashcards').classList.contains('hidden')) {
+        const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+        if (activeTag !== 'input' && activeTag !== 'textarea') {
+          e.preventDefault();
+          toggleCardFlip();
+        }
+      }
+    });
+
+    /* =========================================================
+       MODULE 2: TRANSLATION DRILL
+       ========================================================= */
+    let trDir = 'en-hu';   // 'en-hu' or 'hu-en'
+    let trInput = 'mcq';   // 'mcq' or 'type'
+    let trCurrent = null;
+    let trScoreCount = 0;
+    let trStreakCount = 0;
+    let trLocked = false;
+
+    function setTrDirection(dir) {
+      trDir = dir;
+      document.getElementById('tr-dir-en-hu').classList.toggle('active', dir === 'en-hu');
+      document.getElementById('tr-dir-hu-en').classList.toggle('active', dir === 'hu-en');
+      nextTranslationPrompt();
+    }
+
+    function setTrInputType(type) {
+      trInput = type;
+      document.getElementById('tr-type-mcq').classList.toggle('active', type === 'mcq');
+      document.getElementById('tr-type-text').classList.toggle('active', type === 'type');
+
+      document.getElementById('tr-mcq-area').classList.toggle('hidden', type !== 'mcq');
+      document.getElementById('tr-type-area').classList.toggle('hidden', type !== 'type');
+      if (type === 'type') {
+        setTimeout(() => document.getElementById('tr-text-input').focus(), 80);
+      }
+    }
+
+    function nextTranslationPrompt() {
+      trLocked = false;
+      document.getElementById('tr-feedback-box').classList.add('hidden');
+      document.getElementById('tr-text-input').value = '';
+
+      trCurrent = vocabDatabase[Math.floor(Math.random() * vocabDatabase.length)];
+      document.getElementById('tr-prompt-cat').textContent = trCurrent.category;
+
+      if (trDir === 'en-hu') {
+        document.getElementById('tr-dir-label').textContent = "Translate into Hungarian:";
+        document.getElementById('tr-prompt-text').textContent = trCurrent.en;
+      } else {
+        document.getElementById('tr-dir-label').textContent = "Translate into English:";
+        document.getElementById('tr-prompt-text').textContent = trCurrent.hu;
+      }
+
+      // Generate 4 options for MCQ
+      const container = document.getElementById('tr-mcq-area');
+      container.innerHTML = '';
+
+      const correctAns = (trDir === 'en-hu') ? trCurrent.hu : trCurrent.en;
+      const otherPool = vocabDatabase.filter(i => i.id !== trCurrent.id);
+      const distractors = otherPool.sort(() => 0.5 - Math.random()).slice(0, 3).map(i => (trDir === 'en-hu') ? i.hu : i.en);
+      const allChoices = [correctAns, ...distractors].sort(() => 0.5 - Math.random());
+
+      allChoices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className = "option-btn";
+        btn.textContent = choice;
+        btn.onclick = () => checkTranslationAnswer(choice, btn);
+        container.appendChild(btn);
+      });
+
+      if (trInput === 'type') {
+        setTimeout(() => document.getElementById('tr-text-input').focus(), 80);
+      }
+    }
+
+    function checkTranslationAnswer(userAns, buttonEl = null) {
+      if (trLocked) return;
+      trLocked = true;
+
+      const correctAns = (trDir === 'en-hu') ? trCurrent.hu : trCurrent.en;
+
+      // Soft comparison (strip accents, punctuation, parens)
+      const cleanStr = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+      const isMatch = cleanStr(userAns) === cleanStr(correctAns);
+
+      if (isMatch) {
+        trScoreCount++;
+        trStreakCount++;
+        learnedWords.add(trCurrent.id);
+        saveLearnedStatus();
+      } else {
+        trStreakCount = 0;
+      }
+
+      document.getElementById('tr-score').textContent = trScoreCount;
+      document.getElementById('tr-streak').textContent = trStreakCount;
+
+      if (trInput === 'mcq') {
+        document.querySelectorAll('#tr-mcq-area .option-btn').forEach(btn => {
+          btn.disabled = true;
+          if (btn.textContent === correctAns) {
+            btn.classList.add('correct');
+          } else if (btn === buttonEl && !isMatch) {
+            btn.classList.add('incorrect');
+          }
+        });
+      }
+
+      const fbBox = document.getElementById('tr-feedback-box');
+      fbBox.classList.remove('hidden');
+
+      const title = document.getElementById('tr-feedback-title');
+      const msg = document.getElementById('tr-feedback-msg');
+      const ex = document.getElementById('tr-feedback-ex');
+
+      if (isMatch) {
+        title.textContent = "Correct!";
+        title.style.color = "var(--success)";
+        msg.textContent = `${trCurrent.en} = ${trCurrent.hu}`;
+      } else {
+        title.textContent = "Incorrect";
+        title.style.color = "var(--error)";
+        msg.textContent = `The correct answer is: "${correctAns}"`;
+      }
+      ex.textContent = `Example: "${trCurrent.sentence}"`;
+    }
+
+    function handleTrInputKey(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        checkTypedTranslation();
+      }
+    }
+
+    function checkTypedTranslation() {
+      const val = document.getElementById('tr-text-input').value.trim();
+      if (!val) return;
+      checkTranslationAnswer(val);
+    }
+
+    function speakTrWord() {
+      if (trCurrent) speak(trCurrent.en);
+    }
+
+    /* =========================================================
+       MODULE 3: CLOZE / SENTENCE GAP-FILL QUIZ
+       ========================================================= */
+    let quizList = [];
+    let quizIdx = 0;
+    let quizScore = 0;
+    let quizMistakes = [];
+    let quizLocked = false;
+
+    function startQuizRound(totalCount = 10) {
+      const pool = [...vocabDatabase].sort(() => 0.5 - Math.random());
+      quizList = pool.slice(0, Math.min(totalCount, vocabDatabase.length));
+      quizIdx = 0;
+      quizScore = 0;
+      quizMistakes = [];
+
+      document.getElementById('quiz-question-card').classList.remove('hidden');
+      document.getElementById('quiz-summary-card').classList.add('hidden');
+      renderQuizItem();
+    }
+
+    function renderQuizItem() {
+      quizLocked = false;
+      document.getElementById('quiz-feedback-box').classList.add('hidden');
+
+      const item = quizList[quizIdx];
+      document.getElementById('quiz-question-counter').textContent = `${quizIdx + 1} / ${quizList.length}`;
+      document.getElementById('quiz-score-counter').textContent = quizScore;
+      document.getElementById('quiz-cat-badge').textContent = item.category;
+      document.getElementById('quiz-hu-clue').textContent = item.hu;
+
+      // Cloze with highlighted missing gap
+      const gapDisplay = `<span style="color: var(--primary-700); border-bottom: 2px solid var(--primary-500); padding: 0 4px;">_______</span>`;
+      document.getElementById('quiz-cloze-sentence').innerHTML = item.cloze.replace('_______', gapDisplay);
+
+      const container = document.getElementById('quiz-options-container');
+      container.innerHTML = '';
+
+      // Shuffle calibrated distractors
+      const shuffled = [...item.options].sort(() => 0.5 - Math.random());
+      shuffled.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = "option-btn";
+        btn.textContent = opt;
+        btn.onclick = () => selectQuizAnswer(opt, btn, item);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectQuizAnswer(chosen, btnEl, item) {
+      if (quizLocked) return;
+      quizLocked = true;
+
+      const isRight = (chosen === item.correct);
+      if (isRight) {
+        quizScore++;
+        learnedWords.add(item.id);
+        saveLearnedStatus();
+      } else {
+        quizMistakes.push({ item, userAns: chosen });
+      }
+
+      document.getElementById('quiz-score-counter').textContent = quizScore;
+
+      document.querySelectorAll('#quiz-options-container .option-btn').forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === item.correct) {
+          btn.classList.add('correct');
+        } else if (btn === btnEl && !isRight) {
+          btn.classList.add('incorrect');
+        }
+      });
+
+      const fb = document.getElementById('quiz-feedback-box');
+      fb.classList.remove('hidden');
+
+      const title = document.getElementById('quiz-feedback-title');
+      const text = document.getElementById('quiz-feedback-text');
+
+      if (isRight) {
+        title.textContent = "Well done! Correct answer.";
+        title.style.color = "var(--success)";
+        text.textContent = `"${item.sentence}" means: ${item.hu}`;
+      } else {
+        title.textContent = `The correct word was "${item.correct}"`;
+        title.style.color = "var(--error)";
+        text.textContent = `Sentence context: "${item.sentence}"`;
+      }
+    }
+
+    function nextQuizStep() {
+      if (quizIdx < quizList.length - 1) {
+        quizIdx++;
+        renderQuizItem();
+      } else {
+        showQuizResults();
+      }
+    }
+
+    function speakQuizSentence() {
+      const item = quizList[quizIdx];
+      if (item) speak(item.sentence);
+    }
+
+    function showQuizResults() {
+      document.getElementById('quiz-question-card').classList.add('hidden');
+      const summary = document.getElementById('quiz-summary-card');
+      summary.classList.remove('hidden');
+
+      document.getElementById('quiz-final-score').textContent = `${quizScore} / ${quizList.length}`;
+
+      const mistakesWrap = document.getElementById('quiz-summary-mistakes');
+      mistakesWrap.innerHTML = '';
+
+      if (quizMistakes.length === 0) {
+        mistakesWrap.innerHTML = `<p style="color: var(--success); font-weight: 600; text-align: center;">Fantastic job! Perfect score with no mistakes.</p>`;
+      } else {
+        mistakesWrap.innerHTML = `<h4 style="font-size: 16px; margin-bottom: var(--sp-4);">Items to review:</h4>`;
+        quizMistakes.forEach(m => {
+          const row = document.createElement('div');
+          row.style.padding = "var(--sp-12)";
+          row.style.borderRadius = "var(--radius-card)";
+          row.style.border = "1px solid var(--border)";
+          row.style.backgroundColor = "var(--surface-alt)";
+          row.innerHTML = `
+            <div style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: var(--sp-4);">
+              <span style="color: var(--primary-700);">${m.item.correct} (${m.item.hu})</span>
+              <span style="color: var(--error);">Your pick: ${m.userAns}</span>
+            </div>
+            <p style="font-size: 14px; font-style: italic; color: var(--text-2);">"${m.item.sentence}"</p>
+          `;
+          mistakesWrap.appendChild(row);
+        });
+      }
+    }
+
+    /* =========================================================
+       MODULE 4: COMPLETE REFERENCE WORDLIST
+       ========================================================= */
+    function renderWordlistTable() {
+      const q = document.getElementById('wl-search-input').value.toLowerCase().trim();
+      const cat = document.getElementById('wl-cat-select').value;
+      const container = document.getElementById('wl-cards-container');
+      container.innerHTML = '';
+
+      const filtered = vocabDatabase.filter(i => {
+        const matchesCat = (cat === 'All' || i.category === cat);
+        const matchesQ = i.en.toLowerCase().includes(q) || i.hu.toLowerCase().includes(q) || i.sentence.toLowerCase().includes(q);
+        return matchesCat && matchesQ;
+      });
+
+      document.getElementById('wl-count-display').textContent = filtered.length;
+
+      filtered.forEach(item => {
+        const isLearned = learnedWords.has(item.id);
+        const card = document.createElement('div');
+        card.className = "card";
+        card.style.padding = "var(--sp-16)";
+        card.style.display = "flex";
+        card.style.flexDirection = "column";
+        card.style.justifyContent = "space-between";
+        card.style.gap = "var(--sp-12)";
+
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <span class="badge badge-primary" style="font-size: 12px; margin-bottom: var(--sp-4);">${item.category}</span>
+              <h3 style="font-size: 20px; font-weight: 600; color: var(--text);">${item.en}</h3>
+              <p style="font-size: 14px; font-family: monospace; color: var(--text-muted);">${item.phonetic}</p>
+              <p style="font-size: 16px; font-weight: 600; color: var(--secondary-700); margin-top: var(--sp-4);">${item.hu}</p>
+            </div>
+            <button class="icon-btn" onclick="speak('${item.en.replace(/'/g, "\\'")}')" title="Listen">
+              <svg class="audio-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+            </button>
+          </div>
+
+          <div style="background-color: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--sp-8) var(--sp-12); font-size: 14px; font-style: italic; color: var(--text-2);">
+            "${item.sentence}"
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    /* Init Application */
+    window.addEventListener('DOMContentLoaded', () => {
+      renderFlashcard();
+    });
+  </script>
+</body>
+</html>
