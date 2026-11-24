@@ -467,7 +467,13 @@
           <button class="btn btn-pill-filter" onclick="setFcCategory('More words and phrases')">More words</button>
         </div>
 
-        <div style="display: flex; gap: var(--sp-8);">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-8);">
+          <!-- Flashcard Language Direction Selector (Default: HU -> EN) -->
+          <div style="display: flex; gap: var(--sp-4); background-color: var(--surface-alt); padding: var(--sp-4); border-radius: var(--radius-pill); border: 1px solid var(--border);">
+            <button class="btn btn-pill-filter active" id="fc-dir-hu-en" onclick="setFcDirection('hu-en')">HU &rarr; EN</button>
+            <button class="btn btn-pill-filter" id="fc-dir-en-hu" onclick="setFcDirection('en-hu')">EN &rarr; HU</button>
+          </div>
+
           <button class="btn btn-secondary" onclick="shuffleFlashcards()" style="font-size: 14px; padding: var(--sp-4) var(--sp-12);">
             Shuffle
           </button>
@@ -478,37 +484,41 @@
       <div class="flashcard-wrapper" onclick="toggleCardFlip()" title="Click to flip card (or press Space)">
         <div class="flashcard-inner" id="fc-inner">
           
-          <!-- Card Front: English -->
+          <!-- Card Front -->
           <div class="flashcard-face">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <span class="badge badge-primary" id="fc-cat-badge">The family</span>
-              <button class="icon-btn" onclick="event.stopPropagation(); playCurrentAudio();" title="Listen to pronunciation">
+              <button class="icon-btn" id="fc-front-audio-btn" onclick="event.stopPropagation(); playCurrentAudio();" title="Listen to pronunciation">
                 <svg class="audio-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
               </button>
             </div>
 
             <div style="text-align: center; margin: auto 0;">
-              <h2 id="fc-word-en" style="font-size: 32px; font-weight: 600; color: var(--text); margin-bottom: var(--sp-4);">brother</h2>
-              <span id="fc-phonetic" style="font-size: 16px; color: var(--text-muted); font-family: monospace;">/'brʌðə/</span>
+              <p style="font-size: 14px; color: var(--text-muted); margin-bottom: var(--sp-4);" id="fc-front-label">Hungarian</p>
+              <h2 id="fc-front-text" style="font-size: 32px; font-weight: 600; color: var(--text); margin-bottom: var(--sp-4);">fiútestvér</h2>
+              <span id="fc-phonetic" style="font-size: 16px; color: var(--text-muted); font-family: monospace;"></span>
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--text-muted);">
               <span id="fc-counter">1 / 65</span>
-              <span>Click or tap to view Hungarian</span>
+              <span id="fc-front-hint">Click or tap to flip</span>
             </div>
           </div>
 
-          <!-- Card Back: Hungarian & Example sentence -->
+          <!-- Card Back -->
           <div class="flashcard-face flashcard-back">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span class="badge badge-secondary">Hungarian & Context</span>
-              <button class="icon-btn" onclick="event.stopPropagation(); playCurrentAudio();" title="Listen">
+              <span class="badge badge-secondary" id="fc-back-badge">English & Context</span>
+              <button class="icon-btn" id="fc-back-audio-btn" onclick="event.stopPropagation(); playCurrentAudio();" title="Listen">
                 <svg class="audio-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
               </button>
             </div>
 
             <div style="text-align: center; margin: auto 0; display: flex; flex-direction: column; gap: var(--sp-12);">
-              <h3 id="fc-word-hu" style="font-size: 24px; color: var(--secondary-700);">fiútestvér</h3>
+              <div>
+                <h3 id="fc-back-text" style="font-size: 28px; color: var(--secondary-700);">brother</h3>
+                <span id="fc-back-phonetic" style="font-size: 15px; color: var(--text-muted); font-family: monospace;">/'brʌðə/</span>
+              </div>
               <div style="background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--sp-12);">
                 <p style="font-size: 14px; color: var(--text-muted); margin-bottom: var(--sp-4);">Example sentence:</p>
                 <p id="fc-sentence" style="font-size: 16px; font-style: italic; color: var(--text); font-weight: 600;">"That's my brother and his son."</p>
@@ -837,6 +847,16 @@
     let fcList = [...vocabDatabase];
     let fcIdx = 0;
     let fcFlipped = false;
+    let fcDir = 'hu-en'; // Default: Hungarian -> English as requested
+
+    function setFcDirection(dir) {
+      fcDir = dir;
+      document.getElementById('fc-dir-hu-en').classList.toggle('active', dir === 'hu-en');
+      document.getElementById('fc-dir-en-hu').classList.toggle('active', dir === 'en-hu');
+      fcFlipped = false;
+      document.getElementById('fc-inner').classList.remove('flipped');
+      renderFlashcard();
+    }
 
     function setFcCategory(cat) {
       document.querySelectorAll('#fc-filter-container .btn-pill-filter').forEach(btn => {
@@ -874,11 +894,38 @@
       if (fcList.length === 0) return;
       const item = fcList[fcIdx];
       document.getElementById('fc-cat-badge').textContent = item.category;
-      document.getElementById('fc-word-en').textContent = item.en;
-      document.getElementById('fc-phonetic').textContent = item.phonetic;
-      document.getElementById('fc-word-hu').textContent = item.hu;
-      document.getElementById('fc-sentence').textContent = `"${item.sentence}"`;
       document.getElementById('fc-counter').textContent = `${fcIdx + 1} / ${fcList.length}`;
+      document.getElementById('fc-sentence').textContent = `"${item.sentence}"`;
+
+      const frontAudioBtn = document.getElementById('fc-front-audio-btn');
+      const backAudioBtn = document.getElementById('fc-back-audio-btn');
+
+      if (fcDir === 'hu-en') {
+        // Hungarian on Front, English on Back
+        document.getElementById('fc-front-label').textContent = "Hungarian";
+        document.getElementById('fc-front-text').textContent = item.hu;
+        document.getElementById('fc-phonetic').textContent = "";
+        frontAudioBtn.style.display = "none";
+
+        document.getElementById('fc-back-badge').textContent = "English & Context";
+        document.getElementById('fc-back-text').textContent = item.en;
+        document.getElementById('fc-back-phonetic').textContent = item.phonetic;
+        backAudioBtn.style.display = "inline-flex";
+        document.getElementById('fc-front-hint').textContent = "Click or tap to see English";
+      } else {
+        // English on Front, Hungarian on Back
+        document.getElementById('fc-front-label').textContent = "English";
+        document.getElementById('fc-front-text').textContent = item.en;
+        document.getElementById('fc-phonetic').textContent = item.phonetic;
+        frontAudioBtn.style.display = "inline-flex";
+
+        document.getElementById('fc-back-badge').textContent = "Hungarian & Context";
+        document.getElementById('fc-back-text').textContent = item.hu;
+        document.getElementById('fc-back-phonetic').textContent = "";
+        backAudioBtn.style.display = "inline-flex";
+        document.getElementById('fc-front-hint').textContent = "Click or tap to see Hungarian";
+      }
+
       updateCardLearnedBtn();
     }
 
